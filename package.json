@@ -2,13 +2,14 @@
   "name": "vnc-cua",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.18.0",
+  "packageManager": "pnpm@11.28.5",
   "scripts": {
-    "postinstall": "node ./scripts/patch-novnc.mjs",
-    "dev": "corepack pnpm --filter @vnc-cua/contracts build && concurrently -n contracts,server,web -c yellow,cyan,magenta \"corepack pnpm --filter @vnc-cua/contracts dev\" \"corepack pnpm --filter @vnc-cua/server dev\" \"corepack pnpm --filter @vnc-cua/web dev\"",
-    "build": "corepack pnpm -r build",
-    "test": "corepack pnpm --filter @vnc-cua/contracts build && corepack pnpm -r test",
-    "typecheck": "corepack pnpm --filter @vnc-cua/contracts build && corepack pnpm -r typecheck"
+    "dev": "pnpm run setup:native && pnpm run patch:novnc && pnpm --filter @vnc-cua/contracts build && concurrently -n contracts,server,web -c yellow,cyan,magenta \"pnpm --filter @vnc-cua/contracts dev\" \"pnpm --filter @vnc-cua/server dev\" \"pnpm --filter @vnc-cua/web dev\"",
+    "build": "pnpm run patch:novnc && pnpm -r build",
+    "test": "pnpm run setup:native && pnpm run patch:novnc && pnpm --filter @vnc-cua/contracts build && pnpm -r test",
+    "typecheck": "pnpm run patch:novnc && pnpm --filter @vnc-cua/contracts build && pnpm -r typecheck",
+    "patch:novnc": "node ./scripts/patch-novnc.mjs",
+    "setup:native": "pnpm --filter @vnc-cua/server --config.ignore-scripts=false rebuild better-sqlite3"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

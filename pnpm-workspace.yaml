@@ -1,3 +1,18 @@
 packages:
   - "apps/*"
   - "packages/*"
+
+# Delay registry releases by at least 24 hours, including frozen-lockfile installs.
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+minimumReleaseAgeIgnoreMissingTime: false
+trustLockfile: false
+blockExoticSubdeps: true
+strictDepBuilds: true
+ignoreScripts: true
+# Recheck the policy instead of trusting an unchanged node_modules directory.
+optimisticRepeatInstall: false
+
+# The server needs this reviewed native addon; rebuild it explicitly after install.
+allowBuilds:
+  better-sqlite3@12.9.0: true

@@ -66,7 +66,7 @@ The server uses the published `tensorlake` npm package.
 1. Install dependencies:
 
 ```bash
-corepack pnpm install
+pnpm install
 ```
 
 2. Create your local env file:
@@ -80,7 +80,7 @@ cp .env.example .env
 4. Start the app:
 
 ```bash
-corepack pnpm dev
+pnpm dev
 ```
 
 5. Open:
@@ -154,13 +154,23 @@ This keeps archived sessions lightweight while still showing the last known desk
 From the repo root:
 
 ```bash
-corepack pnpm dev
-corepack pnpm build
-corepack pnpm test
-corepack pnpm typecheck
+pnpm dev
+pnpm build
+pnpm test
+pnpm typecheck
 ```
 
 Package-specific scripts are available in:
 
 - [apps/server/package.json](/Users/bkolobara/dev/vnc-cua/apps/server/package.json)
 - [apps/web/package.json](/Users/bkolobara/dev/vnc-cua/apps/web/package.json)
+
+## Dependency installation
+
+Use Node.js 22 or newer and the pinned pnpm 11.28.5 release. Run
+`pnpm install --frozen-lockfile` before the usual build/test commands. The
+checked-in policy rejects registry releases younger than 24 hours, missing
+publication timestamps, and untrusted transitive Git/tarball dependencies.
+Install lifecycle scripts are disabled; required generation/patching runs
+explicitly in the project scripts. Do not add release-age exemptions to make
+a newly published dependency install immediately.
